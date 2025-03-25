@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App KPI</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <h1>Weather App </h1>
+    <p>Select a city to view weather:</p>
+    <div class="city-buttons">
+        {{#each cities}}
+            <a href="/weather/{{this}}" class="city-btn">{{this}}</a>
+        {{/each}}
+         <button class="geo-btn" onclick="getLocation()" >Моя погода</button>
+    </div>
+   
+
+<script>
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                const lat = position.coords.latitude;
+                const lon = position.coords.longitude;
+                window.location.href = `/weather?lat=${lat}&lon=${lon}`;
+            }, () => {
+                alert("Не вдалося отримати ваше місцезнаходження.");
+            });
+        } else {
+            alert("Ваш браузер не підтримує геолокацію.");
+        }
+    }
+</script>
+</body>
+</html>
